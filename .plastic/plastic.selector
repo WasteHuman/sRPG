@@ -1,0 +1,4 @@
+repository "sRPG@WasteMoonGames@cloud"
+  path "/"
+    br "/main"
+    co "/main"
