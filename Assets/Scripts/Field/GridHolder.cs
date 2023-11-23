@@ -10,6 +10,11 @@ namespace Assets.Scripts.Field
         private int m_GridHeight;
 
         [SerializeField]
+        private Vector2Int m_TargetCoordinate;
+        [SerializeField]
+        private Vector2Int m_StartCoordinate;
+
+        [SerializeField]
         private float m_NodeSize;
 
         private Grid m_Grid;
@@ -18,21 +23,41 @@ namespace Assets.Scripts.Field
 
         private Vector3 m_Offset;
 
-        private void Awake()
+        public Vector2Int StartCoordinate => m_StartCoordinate;
+
+        public Grid Grid => m_Grid;
+
+        private void Start()
         {
-            m_Grid = new(m_GridWidth, m_GridHeight);
             m_Camera = Camera.main;
 
-
-            // Default plane space is 10 by 10
             float width = m_GridWidth * m_NodeSize;
             float height = m_GridHeight * m_NodeSize;
+
+            // Default plane space is 10 by 10
             transform.localScale = new Vector3(
                 width * 0.1f, 
                 1f,
                 height * 0.1f);
 
             m_Offset = transform.position - 
+                (new Vector3(width, 0f, height) * 0.5f);
+
+            m_Grid = new(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_TargetCoordinate);
+        }
+
+        private void OnValidate()
+        {
+            float width = m_GridWidth * m_NodeSize;
+            float height = m_GridHeight * m_NodeSize;
+
+            // Default plane space is 10 by 10
+            transform.localScale = new Vector3(
+                width * 0.1f,
+                1f,
+                height * 0.1f);
+
+            m_Offset = transform.position -
                 (new Vector3(width, 0f, height) * 0.5f);
         }
 
@@ -60,14 +85,48 @@ namespace Assets.Scripts.Field
                 int x = (int) (difference.x / m_NodeSize);
                 int z = (int) (difference.z / m_NodeSize);
 
-                Debug.Log($"{x} + {z}");
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Node node = m_Grid.GetNode(x, z);
+                    node.isOccupied = !node.isOccupied;
+                    m_Grid.UpdatePathFinding();
+                }
             }
         }
 
         private void OnDrawGizmos()
         {
+            if (m_Grid == null)
+            {
+                return;
+            }
+
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(m_Offset, 0.1f);
+
+            foreach (Node node in m_Grid.EnumerateAllNodes())
+            {
+                if (node.nextNode == null)
+                {
+                    continue;
+                }
+                if (node.isOccupied)
+                {
+                    Gizmos.color = Color.cyan;
+                    Gizmos.DrawSphere(node.Position, 0.5f);
+                    continue;
+                }
+                Gizmos.color = Color.red;
+                Vector3 start = node.Position;
+                Vector3 end = node.nextNode.Position;
+
+                Vector3 direction = end - start;
+
+                start -= direction * 0.25f;
+                end -= direction * 0.75f;
+
+                Gizmos.DrawLine(start, end);
+                Gizmos.DrawSphere(end, 0.1f);
+            }
         }
     }
 }
