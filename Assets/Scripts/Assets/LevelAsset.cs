@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Assets.Scripts.EnemySpawn;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Assets
@@ -7,6 +8,6 @@ namespace Assets.Scripts.Assets
     public class LevelAsset : ScriptableObject
     {
         public SceneAsset SceneAsset;
-        public SpawnWaveAsset SpawnWaveAsset;
+        public SpawnWavesAsset SpawnWavesAsset;
     }
 }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Assets.Scripts.Enemy;
+using Assets.Scripts.EnemySpawn;
+using Assets.Scripts.Field;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,8 +37,12 @@ namespace Assets.Scripts.Runtime
 
         private void CreateAllControllers()
         {
-            m_Colntollers = new List<IController>();
-            m_Colntollers.Add(new TestController());
+            m_Colntollers = new List<IController>
+            {
+                new GridPointerController(Game.Player.GridHolder),
+                new EnemySpawnController(Game.CurrentLevel.SpawnWavesAsset, Game.Player.Grid),
+                new MovementController()
+            };
         }
 
         private void OnStartControllers()

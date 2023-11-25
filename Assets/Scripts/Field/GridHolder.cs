@@ -27,7 +27,7 @@ namespace Assets.Scripts.Field
 
         public Grid Grid => m_Grid;
 
-        private void Start()
+        public void CreateGrid()
         {
             m_Camera = Camera.main;
 
@@ -36,14 +36,14 @@ namespace Assets.Scripts.Field
 
             // Default plane space is 10 by 10
             transform.localScale = new Vector3(
-                width * 0.1f, 
+                width * 0.1f,
                 1f,
                 height * 0.1f);
 
-            m_Offset = transform.position - 
+            m_Offset = transform.position -
                 (new Vector3(width, 0f, height) * 0.5f);
 
-            m_Grid = new(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_TargetCoordinate);
+            m_Grid = new Grid(m_GridWidth, m_GridHeight, m_Offset, m_NodeSize, m_StartCoordinate, m_TargetCoordinate);
         }
 
         private void OnValidate()
@@ -61,7 +61,7 @@ namespace Assets.Scripts.Field
                 (new Vector3(width, 0f, height) * 0.5f);
         }
 
-        private void Update()
+        public void RaycastInGrid()
         {
             if (m_Grid == null || m_Camera == null)
             {
@@ -76,6 +76,7 @@ namespace Assets.Scripts.Field
             {
                 if (hit.transform != transform)
                 {
+                    m_Grid.UnselectedNode();
                     return;
                 }
 
@@ -85,12 +86,11 @@ namespace Assets.Scripts.Field
                 int x = (int) (difference.x / m_NodeSize);
                 int z = (int) (difference.z / m_NodeSize);
 
-                if (Input.GetMouseButtonDown(0))
-                {
-                    Node node = m_Grid.GetNode(x, z);
-                    node.isOccupied = !node.isOccupied;
-                    m_Grid.UpdatePathFinding();
-                }
+                m_Grid.SelectCoordinate(new Vector2Int(x, z));
+            }
+            else
+            {
+                m_Grid.UnselectedNode();
             }
         }
 

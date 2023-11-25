@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Level 1 Asset
   m_EditorClassIdentifier: 
   SceneAsset: {fileID: 102900000, guid: c00302f6a85606940b9870e9384fed3e, type: 3}
-  SpawnWaveAsset: {fileID: 11400000, guid: 274d36d1d5d10dd498d205a8e301161c, type: 2}
+  SpawnWavesAsset: {fileID: 11400000, guid: ac2469fff80b0084aa591e2e38602cce, type: 2}
