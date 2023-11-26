@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneAsset: {fileID: 102900000, guid: c00302f6a85606940b9870e9384fed3e, type: 3}
   SpawnWavesAsset: {fileID: 11400000, guid: ac2469fff80b0084aa591e2e38602cce, type: 2}
+  TurretMarketAsset: {fileID: 11400000, guid: 2cb87cdc5e738b04285c1857da481212, type: 2}

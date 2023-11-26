@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Assets;
-using Grid = Assets.Scripts.Field.Grid;
+﻿using Grid = Assets.Scripts.Field.Grid;
 using Assets.Scripts.Runtime;
 using UnityEngine;
 using Assets.Scripts.Enemy;

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.EnemySpawn;
+using Assets.Scripts.TurretSpawn;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,5 +10,6 @@ namespace Assets.Scripts.Assets
     {
         public SceneAsset SceneAsset;
         public SpawnWavesAsset SpawnWavesAsset;
+        public TurretMarketAsset TurretMarketAsset;
     }
 }

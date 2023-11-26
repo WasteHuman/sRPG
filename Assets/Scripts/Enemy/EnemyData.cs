@@ -1,6 +1,4 @@
-﻿using Assets.Scripts.Assets;
-
-namespace Assets.Scripts.Enemy
+﻿namespace Assets.Scripts.Enemy
 {
     public class EnemyData
     {

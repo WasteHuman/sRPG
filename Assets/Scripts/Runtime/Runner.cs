@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Enemy;
 using Assets.Scripts.EnemySpawn;
 using Assets.Scripts.Field;
+using Assets.Scripts.TurretSpawn;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,8 +40,9 @@ namespace Assets.Scripts.Runtime
         {
             m_Colntollers = new List<IController>
             {
-                new GridPointerController(Game.Player.GridHolder),
+                new GridRaycastController(Game.Player.GridHolder),
                 new EnemySpawnController(Game.CurrentLevel.SpawnWavesAsset, Game.Player.Grid),
+                new TurretSpawnController(Game.Player.Grid, Game.Player.TurretMarket),
                 new MovementController()
             };
         }

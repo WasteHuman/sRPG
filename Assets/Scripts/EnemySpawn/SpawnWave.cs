@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Assets;
+﻿using Assets.Scripts.Enemy;
 
 namespace Assets.Scripts.EnemySpawn
 {
